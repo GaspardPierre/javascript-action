@@ -49,16 +49,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        id: checkout
-        uses: actions/checkout@v4
-
-      - name: Test Local Action
-        id: test-action
-        uses: ./
+    
+      -  uses: actions/checkout@v4
+      -  uses: ./
+        id: issue
         with:
-          milliseconds: 1000
-
-      - name: Print Output
-        id: output
-        run: echo "${{ steps.test-action.outputs.time }}"
+          token: ${{ secrets.GITHUB_TOKEN}
+          title: Test Issue
+          body: Test issue body
+          assignees: |
+             alialaa
+      - run: echo ${{steps.issue.outputs.issue}}
